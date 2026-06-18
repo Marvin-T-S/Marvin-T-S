@@ -25,7 +25,7 @@
 ### Tools
 
 <p>
-<img src="https://skillicons.dev/icons?i=git,github,idea,clion,rider,pycharm,emacs,vscode,docker,linux" />
+<img src="https://skillicons.dev/icons?i=git,github,linux,idea,clion,rider,pycharm,emacs,vscode,docker,godot" />
 </p>
 
 ---
