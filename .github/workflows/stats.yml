@@ -1,8 +1,10 @@
 name: Update Language Statistics
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +18,7 @@ jobs:
       - uses: StefVuck/Github-Language-Stats@v1.2.0
         with:
           github_token: ${{ secrets.STATS_TOKEN }}
-          visualization_types: "leaderboard"
-          output_path: "stats"
+          visualization_types: 'leaderboard bar pie donut'
+          output_path: 'stats'
+          exclude_languages: 'HTML,CSS'
           dark_mode: "true"
