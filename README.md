@@ -32,7 +32,7 @@
 
 ## GitHub Activity
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Marvin-T-S&theme=github-compact&hide_border=true&bg_color=0d1117&color=39D353" width="100%" />
+![Language Stats](stats/leaderboard_by_lines.png)
 
 <br>
 
