@@ -17,7 +17,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Clear stats folder
-        run: rm -rf stats && mkdir -p stats
+        run: |
+          find stats -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 
       - uses: StefVuck/Github-Language-Stats@v1.2.0
         with:
