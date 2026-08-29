@@ -22,11 +22,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Remove stats from Git's index, but KEEP the files on disk.
-      - name: Prepare stats directory
+      # Completely remove the stats folder from Git and disk to start fresh
+      - name: Clean stats directory
         run: |
-          git rm -r --cached --ignore-unmatch stats || true
-          git reset -- stats || true
+          git rm -r --ignore-unmatch stats || true
 
       - name: Generate statistics
         uses: StefVuck/Github-Language-Stats@v1.2.0
