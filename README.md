@@ -32,7 +32,7 @@
 
 ## GitHub Activity
 
-![Language Stats](stats/leaderboard_by_lines.png)
+<img src="stats/bar_by_bytes.png" alt="Language Stats" width="500">
 
 <br>
 
