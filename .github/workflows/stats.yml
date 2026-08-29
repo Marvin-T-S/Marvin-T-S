@@ -22,14 +22,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Completely remove the previous generated statistics.
-      - name: Clear stats
+      # Remove stats from Git's index, but KEEP the files on disk.
+      - name: Prepare stats directory
         run: |
-          rm -rf stats
-          mkdir -p stats
+          git rm -r --cached --ignore-unmatch stats || true
+          git reset -- stats || true
 
-      # Your fork should ONLY generate the files.
-      # It must NOT pull, commit or push.
       - name: Generate statistics
         uses: StefVuck/Github-Language-Stats@v1.2.0
         with:
@@ -38,19 +36,3 @@ jobs:
           output_path: 'stats'
           exclude_languages: 'HTML,CSS'
           dark_mode: 'true'
-
-      # Commit everything, including deletions.
-      - name: Commit statistics
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add -A stats
-
-          if git diff --cached --quiet; then
-            echo "No changes to statistics."
-            exit 0
-          fi
-
-          git commit -m "Update language statistics"
-          git push origin HEAD:main
