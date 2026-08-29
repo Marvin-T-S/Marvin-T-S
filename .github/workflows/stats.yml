@@ -17,11 +17,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # Checkout the repository normally.
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          path: repo
 
+      # Create a completely clean copy for the statistics action.
+      - name: Checkout clean generator workspace
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: generator
+
+      # Remove the old statistics ONLY in the generator workspace.
+      - name: Clear generator stats
+        run: |
+          rm -rf generator/stats
+          mkdir -p generator/stats
+
+      # Generate the new statistics.
       - name: Generate statistics
         uses: StefVuck/Github-Language-Stats@v1.2.0
         with:
@@ -30,3 +46,28 @@ jobs:
           output_path: 'stats'
           exclude_languages: 'HTML,CSS'
           dark_mode: 'true'
+        working-directory: generator
+
+      # Replace the real stats directory with the newly generated one.
+      - name: Replace statistics
+        run: |
+          rm -rf repo/stats
+          mkdir -p repo/stats
+          cp -a generator/stats/. repo/stats/
+
+      # Commit the replacement.
+      - name: Commit statistics
+        working-directory: repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A stats
+
+          if git diff --cached --quiet; then
+            echo "No statistics changes."
+            exit 0
+          fi
+
+          git commit -m "Update language statistics"
+          git push origin HEAD:main
