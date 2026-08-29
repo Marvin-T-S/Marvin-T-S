@@ -31,7 +31,7 @@ jobs:
       # Your fork should ONLY generate the files.
       # It must NOT pull, commit or push.
       - name: Generate statistics
-        uses: YOUR_USERNAME/Github-Language-Stats@main
+        uses: StefVuck/Github-Language-Stats@v1.2.0
         with:
           github_token: ${{ secrets.STATS_TOKEN }}
           visualization_types: 'leaderboard bar pie donut'
