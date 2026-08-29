@@ -22,17 +22,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Save the current stats so the action starts with a clean Git tree.
-      - name: Backup current stats
+      # Completely remove the previous generated statistics.
+      - name: Clear stats
         run: |
-          rm -rf /tmp/old-stats
-          if [ -d stats ]; then
-            cp -a stats /tmp/old-stats
-          fi
+          rm -rf stats
+          mkdir -p stats
 
-      # Generate the new statistics.
+      # Your fork should ONLY generate the files.
+      # It must NOT pull, commit or push.
       - name: Generate statistics
-        uses: StefVuck/Github-Language-Stats@v1.2.0
+        uses: YOUR_USERNAME/Github-Language-Stats@main
         with:
           github_token: ${{ secrets.STATS_TOKEN }}
           visualization_types: 'leaderboard bar pie donut'
@@ -40,19 +39,18 @@ jobs:
           exclude_languages: 'HTML,CSS'
           dark_mode: 'true'
 
-      # At this point the action has generated its files.
-      # Remove anything that was not generated this time.
-      - name: Remove stale statistics
+      # Commit everything, including deletions.
+      - name: Commit statistics
         run: |
-          git fetch origin main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Remove all existing tracked/untracked stats files.
-          git rm -rf --ignore-unmatch stats
-          rm -rf stats
+          git add -A stats
 
-          # Restore the newly generated statistics.
-          mkdir -p stats
-          # The action's generated files are already gone if they were
-          # written into stats, so this approach is not suitable if the
-          # action commits/pushes internally.
+          if git diff --cached --quiet; then
+            echo "No changes to statistics."
+            exit 0
+          fi
 
+          git commit -m "Update language statistics"
+          git push origin HEAD:main
