@@ -3,8 +3,8 @@ name: Update Language Statistics
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+    paths-ignore:
+      - 'stats/**'
   workflow_dispatch:
 
 permissions:
@@ -13,12 +13,16 @@ permissions:
 jobs:
   update-stats:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Clear stats folder
         run: |
-          find stats -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+          rm -rf stats
+          mkdir -p stats
 
       - uses: StefVuck/Github-Language-Stats@v1.2.0
         with:
@@ -26,4 +30,4 @@ jobs:
           visualization_types: 'leaderboard bar pie donut'
           output_path: 'stats'
           exclude_languages: 'HTML,CSS'
-          dark_mode: "true"
+          dark_mode: 'true'
