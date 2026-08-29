@@ -22,10 +22,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Completely remove the stats folder from Git and disk to start fresh
+      # Configure Git, remove the directory, and commit the deletion to keep the index clean.
       - name: Clean stats directory
         run: |
-          git rm -r --ignore-unmatch stats || true
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git rm -rf stats || true
+          git commit -m "Clean old stats directory" || true
 
       - name: Generate statistics
         uses: StefVuck/Github-Language-Stats@v1.2.0
