@@ -24,7 +24,7 @@
 
 | **Areas of Interest** |
 | :-- |
-| <img src="https://img.shields.io/badge/Compiler_Development-39D353?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/Operating_Systems-6C63FF?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/Low_Level-555555?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/Open_Source-181717?style=flat-square&logo=github&logoColor=white"> |
+| <img src="https://img.shields.io/badge/Compiler_Development-39D353?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/Operating_Systems-6C63FF?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/Low_Level-555555?style=flat-square&logoColor=white"> <img src="https://img.shields.io/badge/Open_Source-181717?style=flat-square&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Machine_Learning-2F5D55?style=flat-square&logoColor=white">|
 
 ---
 
